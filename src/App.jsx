@@ -128,7 +128,7 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen flex">
+    <div className="h-screen flex px-4 pb-10">
       <div className="flex-1 flex flex-col overflow-x-hidden">
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">

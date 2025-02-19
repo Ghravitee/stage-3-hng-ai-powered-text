@@ -40,7 +40,7 @@ export default function LanguageSelector({ message, updateMessage }) {
 
   return (
     <div className="mt-2 flex flex-col gap-2 relative">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col md:flex-row items-center gap-2">
         <select
           className="p-1 border rounded bg-black text-white"
           value={selectedLang}
