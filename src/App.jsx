@@ -131,7 +131,7 @@ export default function App() {
     <div className="h-screen flex px-4 pb-10">
       <div className="flex-1 flex flex-col overflow-x-hidden">
         {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center px-6">
             <div className="p-8 rounded-lg text-center max-w-md shadow-lg backdrop-blur-md bg-white/10 border border-white/20">
               <h2 className="text-3xl font-extrabold mb-4 monomakh text-white">
                 Welcome to your favorite AI-Powered Translator!

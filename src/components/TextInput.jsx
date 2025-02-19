@@ -13,7 +13,7 @@ export default function TextInput({ onSend }) {
   };
 
   return (
-    <div className="p-4 bg-[#1A1A1A] flex items-center w-[80%] mx-auto">
+    <div className="p-4 bg-[#1A1A1A] flex items-center w-full md:w-[80%] mx-auto">
       <div className="relative w-full">
         {/* Textarea */}
         <textarea
