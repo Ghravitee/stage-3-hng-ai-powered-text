@@ -68,7 +68,7 @@ export default function LanguageSelector({ message, updateMessage }) {
 
       {/* Error message in red */}
       {error && (
-        <p className="text-red-500 text-sm absolute top-[6rem] md:top-[2.5rem]">
+        <p className="text-red-500 text-sm absolute top-[5rem] md:top-[2.5rem]">
           {error}
         </p>
       )}
