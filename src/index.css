@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+body {
+  background: #00040d;
+  color: #e0e0e0;
+  overflow: hidden;
+  font-family: "Manrope", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.ubuntu {
+  font-family: "Ubuntu", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.monomakh {
+  font-family: "Monomakh", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.tooltip {
+  color: black;
+  font-size: 18px;
+}
+.tooltip {
+  --s: 1.5em; /* triangle size */
+  --r: 1em; /* the radius */
+
+  padding: 1em;
+  border: var(--s) solid #0000;
+  border-radius: calc(var(--r) + var(--s));
+  border-bottom-right-radius: 0;
+  background-color: #dfff00;
+  -webkit-mask: radial-gradient(100% 100% at 0 100%, #0000 99%, #000 102%)
+      calc(100% - var(--s)) 100% / var(--s) var(--s) no-repeat border-box,
+    linear-gradient(#000 0 0) padding-box;
+}
+
+.tooltip-1 {
+  color: #fff;
+  font-size: 18px;
+}
+.tooltip-1 {
+  --s: 1.5em; /* triangle size */
+  --r: 1em; /* the radius */
+
+  padding: 1em;
+  padding-bottom: 1.5rem;
+  border: var(--s) solid #0000;
+  border-radius: calc(var(--r) + var(--s));
+  border-bottom-left-radius: 0;
+  background: #232323;
+  -webkit-mask: radial-gradient(100% 100% at 100% 100%, #0000 99%, #000 102%)
+      var(--s) 100% / var(--s) var(--s) no-repeat border-box,
+    linear-gradient(#000 0 0) padding-box;
+}
