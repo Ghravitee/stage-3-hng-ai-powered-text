@@ -4,6 +4,7 @@ import TextInput from "./components/TextInput";
 import detectLanguage from "./api/detectLanguage";
 import translateText from "./api/translateText";
 import languageNames from "./constants/languageNames";
+import chatbot from "./assets/chatbot.png";
 
 export default function App() {
   const [messages, setMessages] = useState([]);
@@ -128,10 +129,19 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen flex px-4 pb-10">
+    <div className="h-screen flex px-4 pb-6 ">
       <div className="flex-1 flex flex-col overflow-x-hidden">
         {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center px-6">
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center px-6">
+            <div className="flex gap-1 items-center">
+              <img
+                src={chatbot}
+                alt="This is the image of a chatbot"
+                width={50}
+                height={50}
+              />
+              <p className="font-bold">Lexiflow</p>
+            </div>
             <div className="p-8 rounded-lg text-center max-w-md shadow-lg backdrop-blur-md bg-white/10 border border-white/20">
               <h2 className="text-3xl font-extrabold mb-4 monomakh text-white">
                 Welcome to your favorite AI-Powered Translator!
@@ -142,9 +152,20 @@ export default function App() {
             </div>
           </div>
         )}
+        <div className="flex gap-1 items-center mt-4 ml-4">
+          <img
+            src={chatbot}
+            alt="This is the image of a chatbot"
+            width={50}
+            height={50}
+          />
+          <p className="font-bold">Lexiflow</p>
+        </div>
+
         <h1 className="text-center text-[1.5rem] md:text-[1.7rem] lg:text-[2rem] font-bold monomakh mt-6">
           AI-Powered Text Processing Interface
         </h1>
+
         <ChatWindow
           messages={messages}
           updateMessage={updateMessage}
