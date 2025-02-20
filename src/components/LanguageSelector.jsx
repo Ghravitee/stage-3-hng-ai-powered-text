@@ -3,38 +3,52 @@ import { useState } from "react";
 import translateText from "../api/translateText";
 
 export default function LanguageSelector({ message, updateMessage }) {
+  // State to store the selected target language (default: English)
   const [selectedLang, setSelectedLang] = useState("en");
   const [error, setError] = useState(""); // Store error messages
   const [loading, setLoading] = useState(false); // Loading state
 
+  // Function to handle translation when the button is clicked
   const handleTranslate = async () => {
     setError(""); // Reset error before making a request
     setLoading(true); // Set loading to true
 
+    // Determine source language (use detected language or default to "auto")
+    const sourceLang = message.detectedLanguage || "auto";
+    const targetLang = selectedLang;
+
     try {
+      // Call the translation API with the provided text and language options
       const translationResult = await translateText(
         message.text,
-        message.detectedLanguage || "auto",
-        selectedLang
+        sourceLang,
+        targetLang
       );
 
+      // Handle potential API errors
       if (translationResult.error) {
-        setError(translationResult.error);
+        if (translationResult.error === "same_language_error") {
+          setError(
+            "Source and target languages are the same. Please choose a different language."
+          );
+        } else {
+          setError(translationResult.error);
+        }
       } else if (translationResult.translatedText) {
         updateMessage(
-          message.text,
-          translationResult.translatedText,
-          selectedLang,
-          message.detectedLanguage // ✅ Retain the original detected language
+          message.text, // original text
+          translationResult.translatedText, // translated text
+          targetLang, // target language
+          sourceLang // original source language
         );
       } else {
         setError("No translation was returned. Please try again.");
       }
     } catch (err) {
-      console.error("❌ Translation Error:", err);
+      console.error("Translation Error:", err);
       setError("Translation failed. Please try again later.");
     } finally {
-      setLoading(false); // Set loading to false after request completes
+      setLoading(false); // Reset loading state when translation completes
     }
   };
 
@@ -66,7 +80,6 @@ export default function LanguageSelector({ message, updateMessage }) {
         </button>
       </div>
 
-      {/* Error message in red */}
       {error && (
         <p className="text-red-500 text-sm absolute top-[5rem] md:top-[2.5rem]">
           {error}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaLocationArrow } from "react-icons/fa";
 
 export default function TextInput({ onSend }) {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(""); // original text
   const [error, setError] = useState(""); // Error state
 
   const handleSend = () => {

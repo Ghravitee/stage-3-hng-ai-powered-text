@@ -2,27 +2,37 @@
 import { useState } from "react";
 import summarizeText from "../api/summarizeText";
 
-export default function ActionButtons({ message, updateMessage }) {
-  const [loading, setLoading] = useState(false); // Loading state
-  const [error, setError] = useState(""); // Error state
+export default function Button({ message, updateMessage }) {
+  // State for tracking loading status
+  const [loading, setLoading] = useState(false);
 
+  // State for tracking errors
+  const [error, setError] = useState("");
+
+  // Function to handle summarization when the button is clicked
   const handleSummarize = async () => {
     setLoading(true);
     setError(""); // Reset error before making a request
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // 1s delay
+      // Simulate a short delay before calling the summarization API
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Call the summarization function with the input message
       const summaryResult = await summarizeText({ text: message.text });
 
+      // Handle errors returned by the API
       if (summaryResult.error) {
         setError(summaryResult.error);
       } else if (summaryResult.summary) {
         updateMessage(
-          message.text,
-          summaryResult.summary,
-          message.detectedLanguage,
+          message.text, // Original text
+          summaryResult.summary, // Summary
+          message.detectedLanguage, // Detected language of the original text
           "en"
         );
+
+        // Handle cases where no summary was returned
       } else {
         setError("No summary was generated. Please try again.");
       }

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import MessageBubble from "./MessageBubble";
 
-export default function ChatWindow({ messages, updateMessage, onAction }) {
+export default function Output({ messages, updateMessage, onAction }) {
   return (
     <div className="flex-1 overflow-auto p-4 custom-scrollbar">
       {messages.map((message, index) => (

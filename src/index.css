@@ -10,12 +10,6 @@ body {
   font-style: normal;
 }
 
-html::-webkit-scrollbar {
-  display: none;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
 /* Custom scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;

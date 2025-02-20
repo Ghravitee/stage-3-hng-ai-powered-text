@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
-import ActionButtons from "./ActionButtons";
+import Button from "./Button";
 import LanguageSelector from "./LanguageSelector";
 import chatbot from "../assets/chatbot.png";
 import { RxAvatar } from "react-icons/rx";
-// import { RiTranslate } from "react-icons/ri";
 import { MdLanguage } from "react-icons/md";
 import { slideInFromLeft, slideInFromRight, zoomIn } from "../utils/motion";
 
@@ -38,9 +37,8 @@ export default function MessageBubble({ message, updateMessage }) {
           message.type === "user" ? "before:right-[-4px]" : "before:left-[-6px]"
         } shadow-xl p-4 rounded-lg`}
         style={{
-          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)", // Soft floating shadow
-          backdropFilter: "blur(12px)", // Frosted glass effect
-          WebkitBackdropFilter: "blur(12px)", // Ensure Safari compatibility
+          boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.2)",
+          backdropFilter: "blur(12px)",
         }}
       >
         {/* Message Text */}
@@ -75,7 +73,7 @@ export default function MessageBubble({ message, updateMessage }) {
           </motion.div>
         )}
 
-        {/* Action Buttons for Bot Messages */}
+        {/* Buttons for Bot Messages */}
 
         <div className="flex flex-col md:flex-row gap-2 items-center">
           {/* Language Selector */}
@@ -83,7 +81,7 @@ export default function MessageBubble({ message, updateMessage }) {
             <LanguageSelector message={message} updateMessage={updateMessage} />
           )}
           {message.type === "bot" && message.actions?.length > 0 && (
-            <ActionButtons message={message} updateMessage={updateMessage} />
+            <Button message={message} updateMessage={updateMessage} />
           )}
         </div>
       </motion.div>

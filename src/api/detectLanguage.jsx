@@ -6,16 +6,18 @@ async function initializeLanguageDetector() {
   if (detectorInstance) return detectorInstance;
 
   try {
+    // Checks if the API is available in the browser.
     if (!("ai" in self) || !("languageDetector" in self.ai)) {
-      console.error("❌ Chrome AI Language Detector API is not supported.");
+      console.error("Chrome AI Language Detector API is not supported.");
       return null;
     }
 
+    // This fetches the capabilities of the language detection API.
     const capabilities = await self.ai.languageDetector.capabilities();
     const canDetect = capabilities.capabilities;
 
     if (canDetect === "no") {
-      console.warn("⚠️ The language detector is not usable.");
+      console.warn("The language detector is not usable.");
       return null;
     }
 
@@ -33,14 +35,16 @@ async function initializeLanguageDetector() {
       await detector.ready;
     }
 
+    // Stores the detector in detectorInstance to reuse it later.
     detectorInstance = detector;
     return detector;
   } catch (error) {
-    console.error("❌ Error initializing Language Detector:", error);
+    console.error("Error initializing Language Detector:", error);
     return null;
   }
 }
 
+// This function detects the language of a given text.
 async function detectLanguage(text) {
   const detector = await initializeLanguageDetector();
   if (!detector) return "API not available";

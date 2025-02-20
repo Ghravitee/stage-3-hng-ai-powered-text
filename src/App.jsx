@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ChatWindow from "./components/ChatWindow";
+import Output from "./components/Output";
 import TextInput from "./components/TextInput";
 import detectLanguage from "./api/detectLanguage";
 import translateText from "./api/translateText";
@@ -8,25 +8,28 @@ import chatbot from "./assets/chatbot.png";
 import { RiTranslate } from "react-icons/ri";
 
 export default function App() {
-  const [messages, setMessages] = useState([]);
-  const [showModal, setShowModal] = useState(true);
+  const [messages, setMessages] = useState([]); // State to store messages exchanged between the user and the bot
+  const [showModal, setShowModal] = useState(true); // State to control the visibility of a modal (shown by default)
   const [error, setError] = useState(""); // Error state
 
+  // Function to handle user message submission
   const handleSend = async (text) => {
     setError(""); // Reset error before request
-    setShowModal(false);
+    setShowModal(false); // Close modal once user sends a message
 
     try {
-      const detectedLanguage = await detectLanguage(text);
+      const detectedLanguage = await detectLanguage(text); // Detect the language of the input text
       console.log(`📝 Detected Language: ${detectedLanguage}`);
 
+      // Create a new user message object
       const userMessage = {
-        text,
-        type: "user",
-        detectedLanguage,
-        isLatestUserMessage: true,
+        text, // Original user input
+        type: "user", // Identifies this as a user message
+        detectedLanguage, // Detected language of the text
+        isLatestUserMessage: true, // Indicates this is the most recent user message
       };
 
+      // Update messages state: mark previous user messages as not latest and add the new one
       setMessages((prev) => {
         const updatedMessages = prev
           .map((msg) => ({ ...msg, isLatestUserMessage: false }))
@@ -34,36 +37,38 @@ export default function App() {
         return updatedMessages;
       });
 
-      const targetLanguage = "en";
-      let translatedText = text;
+      const targetLanguage = "en"; // The language to which messages should be translated
+      let translatedText = text; // Initialize translated text as the original input
 
+      // If the detected language is different from English, translate the text
       if (detectedLanguage !== targetLanguage) {
         const translationResult = await translateText(
           text,
           detectedLanguage,
           targetLanguage
         );
-        translatedText = translationResult.translatedText;
+        translatedText = translationResult.translatedText; // Store the translated text
       }
 
+      // Count the number of words in the input text
       const wordCount = text.match(/\b\w+\b/g)?.length || 0;
+
+      // Count the number of words in the input text
       const actions = [];
-      if (detectedLanguage !== "en") actions.push("Translate");
+      if (detectedLanguage !== "en") actions.push("Translate"); // Translate if the text isn't in English
       if (detectedLanguage.toLowerCase().includes("en") && wordCount >= 150)
-        actions.push("Summarize");
+        actions.push("Summarize"); // Summarizeif it's English and 150+ words
 
-      console.log(
-        `📝 Word Count: ${wordCount}, Detected Language: ${detectedLanguage}, Actions: ${actions}`
-      );
-
+      // Create bot's mssage
       const botResponse = {
-        text,
-        translatedText,
-        detectedLanguage,
-        type: "bot",
-        actions,
+        text, // original text
+        translatedText, // Translated version (or the same if already in English)
+        detectedLanguage, // Language detected from user input
+        type: "bot", // Identifies this as a bot response
+        actions, // Possible actions the bot can perform (Translate/Summarize)
       };
 
+      // Update messages state: add the bot's response
       setMessages((prev) => {
         const updatedMessages = [...prev, botResponse];
         console.log(
@@ -80,15 +85,16 @@ export default function App() {
     }
   };
 
+  // Function to update a specific message when a translation occurs
   const updateMessage = (originalText, newTranslation, newLanguage) => {
-    const fullLanguageName = languageNames[newLanguage] || newLanguage;
+    const fullLanguageName = languageNames[newLanguage] || newLanguage; // Get full name of the language
     setMessages((prevMessages) =>
       prevMessages.map((msg) =>
         msg.text === originalText
           ? {
-              ...msg,
-              translatedText: newTranslation,
-              detectedLanguage: fullLanguageName,
+              ...msg, // Update with the new translated text
+              translatedText: newTranslation, // Update with the new translated text
+              detectedLanguage: fullLanguageName, // Update language name
             }
           : msg
       )
@@ -121,11 +127,11 @@ export default function App() {
                 />
                 <p className="font-bold">Lexiflow</p>
               </div>
-              <div className="p-8 rounded-lg text-center max-w-md shadow-lg backdrop-blur-md bg-white/10 border border-white/20">
+              <div className="p-8 rounded-lg text-center max-w-md shadow-lg backdrop-blur-md bg-white/10 border border-white/ mb-6">
                 <h2 className="text-3xl font-extrabold mb-4 text-white anton">
                   Welcome to your favorite AI-Powered Translator!
                 </h2>
-                <p className="text-white text-lg">
+                <p className="text-white sm:text-lg text-base">
                   Type a message below and let the magic happen!
                 </p>
               </div>
@@ -159,7 +165,7 @@ export default function App() {
           AI-Powered Text Processing Interface
         </h1>
 
-        <ChatWindow messages={messages} updateMessage={updateMessage} />
+        <Output messages={messages} updateMessage={updateMessage} />
         {error && <p className="text-red-500 text-center mt-2">{error}</p>}
         <TextInput onSend={handleSend} />
       </div>
