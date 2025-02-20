@@ -53,8 +53,6 @@ async function detectLanguage(text) {
       return current.confidence > max.confidence ? current : max;
     }, response[0]);
 
-    // console.log("📈 Highest Confidence Detected Language:", highestConfidence);
-
     // Use the languageNames map to get the full language name
     const languageCode = highestConfidence?.detectedLanguage || "Unknown";
     return languageNames[languageCode] || "Unknown"; // Return full language name

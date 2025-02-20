@@ -77,7 +77,7 @@ export default function MessageBubble({ message, updateMessage }) {
 
         {/* Action Buttons for Bot Messages */}
 
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-col md:flex-row gap-2 items-center">
           {/* Language Selector */}
           {message.type === "bot" && (
             <LanguageSelector message={message} updateMessage={updateMessage} />

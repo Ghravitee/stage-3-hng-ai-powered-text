@@ -16,14 +16,33 @@ html::-webkit-scrollbar {
   scrollbar-width: none; /* Firefox */
 }
 
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .ubuntu {
   font-family: "Ubuntu", serif;
   font-weight: 400;
   font-style: normal;
 }
 
-.monomakh {
-  font-family: "Monomakh", serif;
+.anton {
+  font-family: "Anton SC", serif;
   font-weight: 400;
   font-style: normal;
 }

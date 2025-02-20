@@ -3,7 +3,7 @@ import MessageBubble from "./MessageBubble";
 
 export default function ChatWindow({ messages, updateMessage, onAction }) {
   return (
-    <div className="flex-1 overflow-auto p-4">
+    <div className="flex-1 overflow-auto p-4 custom-scrollbar">
       {messages.map((message, index) => (
         <MessageBubble
           key={index}

@@ -17,11 +17,11 @@ export default function TextInput({ onSend }) {
   };
 
   return (
-    <div className="p-4 bg-[#1A1A1A] flex flex-col items-center w-full md:w-[80%] mx-auto relative">
-      <div className="relative w-full">
+    <div className="p-4 bg-[#1A1A1A] flex flex-col items-center w-full md:w-[80%] mx-auto relative ">
+      <div className="relative w-full ">
         {/* Textarea */}
         <textarea
-          className="w-full p-4 pr-12 bg-[#222] rounded-xl text-white outline-none placeholder-gray-400 resize-none focus-visible:outline focus-visible:outline-yellow-400"
+          className="w-full p-4 pr-12 bg-[#222] rounded-xl text-white outline-none placeholder-gray-400 resize-none focus-visible:outline focus-visible:outline-yellow-400 custom-scrollbar"
           name="message"
           required
           value={text}

@@ -20,8 +20,8 @@ export default function ActionButtons({ message, updateMessage }) {
         updateMessage(
           message.text,
           summaryResult.summary,
-          "summary",
-          "en" // ✅ Ensure detected language remains English
+          message.detectedLanguage,
+          "en"
         );
       } else {
         setError("No summary was generated. Please try again.");

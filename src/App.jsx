@@ -5,6 +5,7 @@ import detectLanguage from "./api/detectLanguage";
 import translateText from "./api/translateText";
 import languageNames from "./constants/languageNames";
 import chatbot from "./assets/chatbot.png";
+import { RiTranslate } from "react-icons/ri";
 
 export default function App() {
   const [messages, setMessages] = useState([]);
@@ -78,40 +79,6 @@ export default function App() {
       );
     }
   };
-  // const handleAction = async (action, message) => {
-  //   console.log(
-  //     `🚀 Action Triggered: ${action} for message: "${message.text}"`
-  //   );
-
-  //   if (action === "Summarize") {
-  //     try {
-  //       const summaryResult = await summarizeText({ text: message.text });
-  //       if (summaryResult.error) {
-  //         console.error("Summarization Error:", summaryResult.error);
-  //         return;
-  //       }
-
-  //       setMessages((prevMessages) => {
-  //         const updatedMessages = prevMessages.map((msg) =>
-  //           msg.text === message.text && !msg.summary
-  //             ? {
-  //                 ...msg,
-  //                 summary: summaryResult.summary, // Add summary
-  //                 detectedLanguage: msg.detectedLanguage,
-  //               }
-  //             : msg
-  //         );
-  //         console.log(
-  //           "🔄 Updated Messages (After Summarization):",
-  //           updatedMessages
-  //         );
-  //         return updatedMessages;
-  //       });
-  //     } catch (error) {
-  //       console.error("Error summarizing text:", error);
-  //     }
-  //   }
-  // };
 
   const updateMessage = (originalText, newTranslation, newLanguage) => {
     const fullLanguageName = languageNames[newLanguage] || newLanguage;
@@ -129,29 +96,55 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen flex px-4 pb-6 ">
-      <div className="flex-1 flex flex-col overflow-x-hidden">
+    <div className="h-screen flex px-4 pb-6 relative">
+      <div className="flex-1 flex flex-col  overflow-x-hidden">
         {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center px-6">
-            <div className="flex gap-1 items-center">
-              <img
-                src={chatbot}
-                alt="This is the image of a chatbot"
-                width={50}
-                height={50}
-              />
-              <p className="font-bold">Lexiflow</p>
+          <div className="fixed top-[4rem] left-0 right-0 bg-black bg-opacity-60 flex flex-col md:flex-row justify-center items-center px-6">
+            <div className=" bg-black text-white p-4 rounded-lg shadow-lg w-64 text-center">
+              <p className="font-bold text-yellow-400 anton">
+                Important Notice
+              </p>
+              <p className="mt-2 text-sm">
+                This application works best on Google Chrome. Other browsers may
+                not support all functionalities.
+              </p>
             </div>
-            <div className="p-8 rounded-lg text-center max-w-md shadow-lg backdrop-blur-md bg-white/10 border border-white/20">
-              <h2 className="text-3xl font-extrabold mb-4 monomakh text-white">
-                Welcome to your favorite AI-Powered Translator!
-              </h2>
-              <p className="text-white text-lg">
-                Type a message below and let the magic happen!
+
+            <div className="flex flex-col items-center">
+              <div className="flex gap-1 items-center">
+                <img
+                  src={chatbot}
+                  alt="This is the image of a chatbot"
+                  width={50}
+                  height={50}
+                  className=""
+                />
+                <p className="font-bold">Lexiflow</p>
+              </div>
+              <div className="p-8 rounded-lg text-center max-w-md shadow-lg backdrop-blur-md bg-white/10 border border-white/20">
+                <h2 className="text-3xl font-extrabold mb-4 text-white anton">
+                  Welcome to your favorite AI-Powered Translator!
+                </h2>
+                <p className="text-white text-lg">
+                  Type a message below and let the magic happen!
+                </p>
+              </div>
+            </div>
+            <div className=" bg-black text-white p-4 rounded-lg shadow-lg w-64 text-center hidden md:block">
+              <div className="flex items-center gap-1 justify-center">
+                <RiTranslate />
+                <p className="font-bold text-blue-400 anton">
+                  Translation Info
+                </p>
+              </div>
+              <p className="mt-2 text-sm">
+                By default, all languages are first translated into English
+                before further processing.
               </p>
             </div>
           </div>
         )}
+
         <div className="flex gap-1 items-center mt-4 ml-4">
           <img
             src={chatbot}
@@ -159,18 +152,14 @@ export default function App() {
             width={50}
             height={50}
           />
-          <p className="font-bold">Lexiflow</p>
+          <p className="font-bold anton">Lexiflow</p>
         </div>
 
-        <h1 className="text-center text-[1.5rem] md:text-[1.7rem] lg:text-[2rem] font-bold monomakh mt-6">
+        <h1 className="text-center text-[1.5rem] md:text-[1.7rem] lg:text-[2rem] font-bold anton">
           AI-Powered Text Processing Interface
         </h1>
 
-        <ChatWindow
-          messages={messages}
-          updateMessage={updateMessage}
-          // onAction={handleAction}
-        />
+        <ChatWindow messages={messages} updateMessage={updateMessage} />
         {error && <p className="text-red-500 text-center mt-2">{error}</p>}
         <TextInput onSend={handleSend} />
       </div>
